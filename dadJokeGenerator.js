@@ -12,3 +12,50 @@ function selectRandomFromArray(array) {
     let randomNum = Math.floor(Math.random() * array.length);
     return array[randomNum];
 }
+
+//Function returns a random age between given ages:
+function age(minAge, maxAge) {
+    let tempAge = Math.floor(Math.random()*(maxAge-minAge));
+    return (tempAge + minAge);
+}
+
+//Function returns a given array in the form 'item1, item2 and item 3':
+function arrayFormatter(list) {
+    let out = [];
+    for (let i = 0; i < list.length; i++) {
+      if (i === list.length-2 && list.length > 1) {
+        out.push(list[i]);
+        out.push('and');
+        out.push(list[i+1]);
+        break;
+      } else if (list.length > 1){
+        out.push(list[i]+',');
+      } else {
+        out.push(list[i]);
+      }
+    }
+    return(out.join(' '));
+  }
+//Function to process and output the dad joke:
+function dadJoke(dadJokes, dadNames, childrenNames, minAge, maxAge, maxNumberOfChildren) {
+    const dadJoke = selectRandomFromArray(dadJokes);
+    const dadName = selectRandomFromArray(dadNames);
+    const numberOfChildren = Math.floor(Math.random()*maxNumberOfChildren);
+    const chosenChildrenNames = [];
+    for (let i = 0; i < numberOfChildren; i++) {
+        chosenChildrenNames.push(selectRandomFromArray(childrenNames));
+    }
+    let children;
+    if(numberOfChildren) {
+        children = arrayFormatter(chosenChildrenNames);
+    } else{
+        children = "whoever's out there";
+    }
+    
+    const dadAge = age(minAge, maxAge);
+
+    console.log(`Dear ${children}, I came across the most excellent joke today and i just had to share it with you! Here it is: "${dadJoke}" I hope you enjoyed it as much as I did. Love from your dad, ${dadName}, ${dadAge} years old.`);
+
+}
+
+dadJoke(dadJokes, dadNames, childrenNames, 35, 103, 5);
